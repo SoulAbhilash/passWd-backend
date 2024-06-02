@@ -17,7 +17,11 @@ class KeyMangaerDB():
             print(e)
             return False, e  
     
-    def get_keys(self, uid):
-        return  dict(self.key_ref.child(uid).get().val())
+    def get_keys(self, uid) -> dict:
+            response = dict(self.key_ref.child(uid).get().val())
+            print(type(response))
+            return response
+
+        
             
     
