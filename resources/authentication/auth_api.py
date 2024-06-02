@@ -1,7 +1,10 @@
 from flask_restful import Resource, reqparse
-from flask import Response, jsonify, make_response
+from flask.wrappers import Response
+from flask.helpers import make_response
+from flask.json import jsonify
 
 from .auth_db import AuthManager
+from ..keys_management.key_db import KeyMangaerDB
 from ..user.user_db import UserDB
 
 class CreateNewUser(Resource):
@@ -34,14 +37,14 @@ class CreateNewUser(Resource):
                 return make_response(jsonify({"body": "User already exsist! Signin sucessful"}), 201)
             
             # Handle response from AuthManager
-            success, keys_or_error = self.auth_manager.create_user(uid=uid, username=username, email=email, access_token=access_token)
+            success, message = self.auth_manager.create_user(uid=uid, username=username, email=email, access_token=access_token)
             
             if success:
-                response = {'body': 'User Created Successfully', **keys_or_error }
+                response = {'body': 'User Created Successfully'}
                 return make_response(jsonify(response), 201)
             
             else:
-                return make_response({'message': str(keys_or_error)}, 500)
+                return make_response({'message': str(message)}, 500)
 
 
         except Exception as e:
