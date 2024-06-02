@@ -10,8 +10,8 @@ from .helpers import HelperFunctions
 helper_functions = HelperFunctions()
 
 # Load environment variables from .env files
-# load_dotenv('.env.firebase')
-# load_dotenv('.env.secret')
+load_dotenv('.env.firebase')
+load_dotenv('.env.secret')
 
 
 # Pyrebase configuration
@@ -26,7 +26,6 @@ firebase_config = {
     'measurementId': os.getenv('FIREBASE_MEASUREMENT_ID')
 }
 
-print(firebase_config)
 # Initialize Firebase
 firebase = pyrebase.initialize_app(firebase_config)
 db = firebase.database()
