@@ -9,7 +9,7 @@ class AuthManager:
     This class manages user authentication functionalities.
     """
 
-    def create_user(self, uid:str, username:str, email:str, access_token:str) -> tuple:
+    def create_user(self, uid:str, username:str, email:str) -> tuple:
         """
         Creates a new user in the Firebase Realtime Database.
 
@@ -30,7 +30,6 @@ class AuthManager:
             data = {
                 'username': username,
                 'email': email,
-                'access_token': access_token,
             }
 
             status, key = KeyMangaerDB().save_keys(uid)
