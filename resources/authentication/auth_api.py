@@ -18,34 +18,34 @@ class CreateNewUser(Resource):
 
         self.auth_manager = AuthManager()
         self.user_db = UserDB()
-
-
         super().__init__()
 
     def post(self):
         try:
             # Parse arguments without strict mode for individual field validation
             args = self.parser.parse_args()
+            print(args)
 
             # Access parsed arguments (after validation)
             uid = args['uid']
             username = args['username']
             email = args['email']
-            access_token = args['access_token']
             
             if self.user_db._if_user_exsist(uid):
                 return make_response(jsonify({"body": "User already exsist! Signin sucessful"}), 201)
             
             # Handle response from AuthManager
-            success, message = self.auth_manager.create_user(uid=uid, username=username, email=email, access_token=access_token)
+            success, message = self.auth_manager.create_user(uid=uid, username=username, email=email)
             
             if success:
                 response = {'body': 'User Created Successfully'}
                 return make_response(jsonify(response), 201)
             
             else:
+                print(message)
                 return make_response({'message': str(message)}, 500)
 
 
         except Exception as e:
+            print(e)
             return make_response({'message': str(e)}, 400)
