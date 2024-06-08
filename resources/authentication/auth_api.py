@@ -14,7 +14,6 @@ class CreateNewUser(Resource):
         self.parser.add_argument('uid', type=str, required=True, help='uid is required')
         self.parser.add_argument('username', type=str, required=True, help='username is required')
         self.parser.add_argument('email', type=str, required=True, help='email is required')
-        self.parser.add_argument('access_token', type=str, required=True, help='access_token is required')
 
         self.auth_manager = AuthManager()
         self.user_db = UserDB()
@@ -43,7 +42,7 @@ class CreateNewUser(Resource):
             
             else:
                 print(message)
-                return make_response({'message': str(message)}, 500)
+                return make_response(jsonify({'message': str(message)}), 500)
 
 
         except Exception as e:

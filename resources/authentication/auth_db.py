@@ -32,14 +32,14 @@ class AuthManager:
                 'email': email,
             }
 
-            status, key = KeyMangaerDB().save_keys(uid)
+            status, message = KeyMangaerDB().save_keys(uid)
 
             if status:
                 db.child("Users").child(uid).set(data)
             else:
                 raise Exception("Unable to generate/save keys")
 
-            return True, key
+            return True, message
 
         except Exception as e:
             return False, e

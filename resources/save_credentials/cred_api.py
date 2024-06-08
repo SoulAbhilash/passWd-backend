@@ -22,6 +22,7 @@ class Credentials(Resource):
     def get(self):
         try:
             uid = request.headers.get("uid")
+            print(uid)
             success, message = self.cred_manager.get_credentials(uid)
             if success:
                 return make_response(jsonify({'data': message}), 201)
@@ -48,7 +49,7 @@ class Credentials(Resource):
                 password=password, 
                 website=website,
                 )
-            print(f"Sucess: {success}")
+            
             
             if success:
                 return make_response(jsonify({'body': 'Password Saved'}), 201)
