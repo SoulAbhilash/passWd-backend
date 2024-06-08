@@ -8,10 +8,10 @@ class KeyMangaerDB():
         
     def save_keys(self, uid):
         try:
-            private_key, public_key = helper_functions.generate_key_pair()
-            self.key_ref.child(uid).set({"private_key": private_key, "public_key": public_key})
+            keys_iv = helper_functions.generate_keys_iv()
+            self.key_ref.child(uid).set({**keys_iv})
                  
-            return True, {"public_key": public_key, "private_key": private_key}
+            return True, "key saved"
         
         except Exception as e:
             print(e)
